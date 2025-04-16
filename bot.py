@@ -1,9 +1,11 @@
+
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import ApplicationBuilder, CommandHandler, CallbackQueryHandler, ContextTypes
-
-# 👉 Cole seu TOKEN aqui:
 import os
+
+# 👉 Pegando o token da variável de ambiente
 TOKEN = os.getenv("BOT_TOKEN")
+
 # 🔹 Função que exibe o menu principal
 async def show_main_menu(update_or_query, context):
     keyboard = [
@@ -17,10 +19,8 @@ async def show_main_menu(update_or_query, context):
         "Escolha uma opção abaixo:"
     )
 
-    # Se for uma mensagem nova (comando /start)
     if isinstance(update_or_query, Update):
         await update_or_query.message.reply_text(text, reply_markup=reply_markup)
-    # Se for retorno do botão "voltar"
     else:
         await update_or_query.edit_message_text(text, reply_markup=reply_markup)
 
@@ -46,8 +46,26 @@ async def button(update: Update, context: ContextTypes.DEFAULT_TYPE):
     elif query.data == 'voltar':
         await show_main_menu(query, context)
 
+# 🔹 Servidor web para manter o bot "acordado"
+from flask import Flask
+from threading import Thread
+
+app_flask = Flask('')
+
+@app_flask.route('/')
+def home():
+    return "Bot está vivo!"
+
+def run():
+    app_flask.run(host='0.0.0.0', port=8080)
+
+def keep_alive():
+    t = Thread(target=run)
+    t.start()
+
 # 🔹 Iniciar o bot
 if __name__ == '__main__':
+    keep_alive()  # Ativa o webserver fake
     app = ApplicationBuilder().token(TOKEN).build()
 
     app.add_handler(CommandHandler("start", start))
