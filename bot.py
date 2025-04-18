@@ -36,12 +36,12 @@ async def button(update: Update, context: ContextTypes.DEFAULT_TYPE):
     if query.data == 'canal_gratis':
         keyboard = [[InlineKeyboardButton("🔙 Voltar", callback_data='voltar')]]
         reply_markup = InlineKeyboardMarkup(keyboard)
-        await query.edit_message_text("✅ Aqui está o canal gratuito: https://t.me/+aDwQp2uAGj0zY2Qx", reply_markup=reply_markup)
+        await query.edit_message_text("✅ Aqui está o canal gratuito: https://t.me/OvergearedFUTFree", reply_markup=reply_markup)
 
     elif query.data == 'canal_vip':
         keyboard = [[InlineKeyboardButton("🔙 Voltar", callback_data='voltar')]]
         reply_markup = InlineKeyboardMarkup(keyboard)
-        await query.edit_message_text("💰 Para acessar o VIP, clique aqui para fazer o pagamento:\nhttps://web.telegram.org/k/#@KrayOG_Bot", reply_markup=reply_markup)
+        await query.edit_message_text("💰 Para acessar o VIP, clique aqui para fazer o pagamento:\nhttps://web.telegram.org/k/#@YuraOG_Bot", reply_markup=reply_markup)
 
     elif query.data == 'voltar':
         await show_main_menu(query, context)
